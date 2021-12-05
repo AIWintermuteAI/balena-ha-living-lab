@@ -7,18 +7,19 @@ post-provisioning: >-
 
   Once your device joins the fleet you'll need to allow some time for it to download the various services.
 
-  When it's done you should be able to access the access the app at http://homeassistant.local.
+  When it's done you should be able to access the access the app at http://homeassistant.local:8123.
+  Node RED can be accessed at http://homeassistant.local:1880.
 
   Documentation for Home Assistant can be found at https://www.home-assistant.io/docs/.
 assets:
   repository:
     type: "blob.asset"
     data:
-      url: "https://github.com/AIWintermuteAI/balena-homeassistant"
+      url: "https://github.com/AIWintermuteAI/balena-ha-living-lab"
   logo:
     type: "blob.asset"
     data:
-      url: "https://raw.githubusercontent.com/AIWintermuteAI/balena-homeassistant/main/logo.png"
+      url: "https://raw.githubusercontent.com/AIWintermuteAI/balena-ha-living-lab/main/logo.png"
 data:
   defaultDeviceType: "raspberrypi4-64"
   supportedDeviceTypes:

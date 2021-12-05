@@ -1,4 +1,4 @@
-# balena-homeassistant
+#  balena-ha-living-lab
 
 [Home Assistant](https://www.home-assistant.io/) - Open source home automation that puts local control and privacy first.
 
@@ -11,7 +11,7 @@
 
 You can one-click-deploy this project to Balena using the button below:
 
-[![deploy with balena](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/AIWintermuteAI/balena-homeassistant)
+[![deploy with balena](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/AIWintermuteAI/balena-ha-living-lab)
 
 ## Manual Deployment
 
