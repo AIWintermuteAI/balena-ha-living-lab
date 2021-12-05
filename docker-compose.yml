@@ -1,51 +1,49 @@
 version: "2.1"
 
 services:
-  # https://hub.docker.com/r/homeassistant/home-assistant
+
+  volume-service:
+    build: .
+    #restart: no
+    command: >
+         /bin/sh -c "echo 'SUCCESS'; trap : TERM INT; sleep infinity & wait"
+    volumes:
+    - ha-config:/sonoff-addon #same dir as specified in Dockerfile
+
   homeassistant:
-    image: homeassistant/home-assistant:2021.11.5
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/raspberrypi4-homeassistant:2021.11.5"
     ports:
       - 80:8123
     volumes:
-      - config:/config
+      - ha-config:/config
+    depends_on:
+      - volume-service  
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
 
-  # https://hub.docker.com/_/eclipse-mosquitto
-  mqtt:
-    build: mqtt
+  mosquitto:
+    image: eclipse-mosquitto
     ports:
       - 1883:1883
+      - 8883:8883
     volumes:
-      - mqtt:/mosquitto/data
-
-  # https://hub.docker.com/r/codercom/code-server
-  code-server:
-    image: codercom/code-server:3.12.0
-    command:
-      - --port=8080
-      - --auth=none
-      - --extensions-dir=/config/.vscode
-      - --user-data-dir=/config/.vscode
-      - /config
-    working_dir: /config
+      - mosquitto-data:/mosquitto/data
+      - mosquitto-logs:/mosquitto/logs
+      - mosquitto-conf:/mosquitto/config
+    restart: unless-stopped
+        
+  node-red:
+    container_name: node-red-ha
+    environment:
+      TZ: ${TZ}
+    image: "aiwintermuteai/node-red-ha"
+    restart: unless-stopped
     ports:
-      - 8080:8080/tcp
+      - "1880:1880"
     volumes:
-      - config:/config
-    user: root
-
-  # https://hub.docker.com/_/influxdb
-  influxdb:
-    image: influxdb:1.8.6
-    volumes:
-      - influxdb:/var/lib/influxdb
-
-  # https://hub.docker.com/r/grafana/grafana
-  grafana:
-    image: grafana/grafana:8.1.2
-    volumes:
-      - grafana:/var/lib/grafana
-    ports:
-        - 3000:3000/tcp
+      - node-red-data:/node-red-data   
 
   # https://github.com/balenablocks/hostname
   hostname:
@@ -57,8 +55,8 @@ services:
       SET_HOSTNAME: homeassistant
 
 volumes:
-  config:
-  mqtt:
-  dashboard:
-  influxdb:
-  grafana:
+  ha-config:
+  node-red-data:
+  mosquitto-data:
+  mosquitto-logs:
+  mosquitto-conf:

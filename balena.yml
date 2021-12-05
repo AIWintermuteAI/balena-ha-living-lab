@@ -1,7 +1,7 @@
-name: "Home Assistant"
+name: "Home Assistant Living Lab"
 type: "sw.application"
 version: 2021.11.5
-description: "Open source home automation that puts local control and privacy first."
+description: "Open source home automation software combined with Node Red and third party integrations."
 post-provisioning: >-
   ## Usage instructions
 
@@ -14,11 +14,11 @@ assets:
   repository:
     type: "blob.asset"
     data:
-      url: "https://github.com/klutchell/balena-homeassistant"
+      url: "https://github.com/AIWintermuteAI/balena-homeassistant"
   logo:
     type: "blob.asset"
     data:
-      url: "https://raw.githubusercontent.com/klutchell/balena-homeassistant/main/logo.png"
+      url: "https://raw.githubusercontent.com/AIWintermuteAI/balena-homeassistant/main/logo.png"
 data:
   defaultDeviceType: "raspberrypi4-64"
   supportedDeviceTypes:
